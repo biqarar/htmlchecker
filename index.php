@@ -35,6 +35,8 @@ foreach($files as $file)
 
     $addr = $file->getpathName();
 
+    $addr = str_replace('$', '\\$', $addr);
+
     $cmd = 'java -jar vnu.jar '. $addr. '  2>&1';
 
     $result = exec($cmd, $c);
