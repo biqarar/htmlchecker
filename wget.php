@@ -67,8 +67,20 @@ class wget
 	$cmd .= ' -c';
 	$cmd .= ' --mirror';
 	$cmd .= ' --no-check-certificate';
+	$cmd .= ' --max-redirect 10';
 
-	$cmd .= ' --reject-regex "(.*)\?(id\=.*)"';
+
+	if(isset($config['exclude-directories']))
+	{
+		$cmd .= ' --exclude-directories '. $config['exclude-directories'];
+	}
+
+	if(isset($config['include-directories']))
+	{
+		$cmd .= ' --include-directories '. $config['include-directories'];
+	}
+
+	$cmd .= ' --reject-regex "(.*)\?page\=(.*)"';
 
 	$cmd .= " --header 'authority: jibres.local'";
 	$cmd .= " --header 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36' ";
@@ -78,6 +90,8 @@ class wget
 	{
 		$cmd .= sprintf(" --header 'cookie: %s' ", $cookie);
 	}
+
+	var_dump($cmd);exit;
 
 	exec($cmd);
   }
