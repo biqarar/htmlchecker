@@ -7,6 +7,8 @@ ini_set('display_errors'        , 1);
 error_reporting(E_ALL);
 
 
+$check_duplicate = [];
+
 set_time_limit(0);
 
 $dir = __DIR__. '/site/';
@@ -42,8 +44,14 @@ foreach($files as $file)
         $c = [];
     }
 
-
-    file_put_contents(__DIR__. '/result.log', implode("\n", $c), FILE_APPEND);
+    foreach ($c as $key => $value)
+    {
+        if(!in_array(md5($value), $check_duplicate))
+        {
+            $check_duplicate[] = md5($value);
+            file_put_contents(__DIR__. '/result.log', $value. "\n\n", FILE_APPEND);
+        }
+    }
 
 }
 ?>
