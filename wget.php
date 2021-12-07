@@ -61,31 +61,17 @@ class wget
 
 
 	$cmd = 'wget';
-
 	$cmd .= ' --recursive';
 	$cmd .= ' --no-check-certificate';
-	$cmd .= ' --domains '. $site;
+	// $cmd .= ' --domains '. $site;
 	$cmd .= ' --no-parent';
 	$cmd .= ' --page-requisites';
 	$cmd .= ' --html-extension';
 	$cmd .= ' --convert-links';
 	$cmd .= ' --no-clobber';
+	$cmd .= ' --reject-regex "(.*)\?(.*)"';
 
-	if(isset($config['exclude-directories']))
-	{
-		$cmd .= ' --exclude-directories '. $config['exclude-directories'];
-	}
-
-	if(isset($config['include-directories']))
-	{
-		$cmd .= ' --include-directories '. $config['include-directories'];
-	}
-
-	$cmd .= ' --reject-regex "(.*)\?page\=(.*)"';
-
-	$cmd .= " --header 'authority: jibres.local'";
 	$cmd .= " --header 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36'";
-	$cmd .= " --header 'accept: */*'";
 
 	if($cookie)
 	{
@@ -93,6 +79,8 @@ class wget
 	}
 
 	$cmd .= ' '. $site;
+
+	$cmd = str_replace('$', '\\$', $cmd);
 
 	file_put_contents(__DIR__. '/run.sh', $cmd);exit;
 
