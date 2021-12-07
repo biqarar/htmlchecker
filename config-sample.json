@@ -1,4 +1,6 @@
 {
     "site": "https://yourwebsite.tld",
-    "cookie": "[your website cookie]"
+    "cookie": "[your website cookie]",
+    "exclude-directories": null,
+    "include-directories": null
 }
