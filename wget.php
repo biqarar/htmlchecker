@@ -60,15 +60,16 @@ class wget
 	}
 
 
-	$cmd = 'wget ';
+	$cmd = 'wget';
 
-	$cmd .= ' '. $site;
-	$cmd .= ' -r';
-	$cmd .= ' -c';
-	$cmd .= ' --mirror';
+	$cmd .= ' --recursive';
 	$cmd .= ' --no-check-certificate';
-	$cmd .= ' --max-redirect 10';
-
+	$cmd .= ' --domains '. $site;
+	$cmd .= ' --no-parent';
+	$cmd .= ' --page-requisites';
+	$cmd .= ' --html-extension';
+	$cmd .= ' --convert-links';
+	$cmd .= ' --no-clobber';
 
 	if(isset($config['exclude-directories']))
 	{
@@ -83,17 +84,20 @@ class wget
 	$cmd .= ' --reject-regex "(.*)\?page\=(.*)"';
 
 	$cmd .= " --header 'authority: jibres.local'";
-	$cmd .= " --header 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36' ";
-	$cmd .= " --header 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9' ";
+	$cmd .= " --header 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36'";
+	$cmd .= " --header 'accept: */*'";
 
 	if($cookie)
 	{
-		$cmd .= sprintf(" --header 'cookie: %s' ", $cookie);
+		$cmd .= sprintf(" --header 'cookie: %s'", $cookie);
 	}
 
-	var_dump($cmd);exit;
+	$cmd .= ' '. $site;
 
-	exec($cmd);
+	file_put_contents(__DIR__. '/run.sh', $cmd);exit;
+
+	echo ' sh run.sh';
+	// exec($cmd);
   }
 
   private static function error($_text)

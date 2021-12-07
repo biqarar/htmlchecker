@@ -1,3 +1,4 @@
 site/
 *.log
 config.json
+run.sh
