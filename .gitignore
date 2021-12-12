@@ -3,4 +3,5 @@ site/
 config.json
 run.sh
 *.zip
+*.7z
 *.html

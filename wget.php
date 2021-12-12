@@ -60,22 +60,22 @@ class wget
 	}
 
 
-	$cmd = 'wget';
-	$cmd .= ' --recursive';
-	$cmd .= ' --no-check-certificate';
-	// $cmd .= ' --domains '. $site;
-	// $cmd .= ' --no-parent';
-	$cmd .= ' --page-requisites';
-	$cmd .= ' --html-extension';
-	// $cmd .= ' --convert-links';
-	// $cmd .= ' --no-clobber';
-	$cmd .= ' --reject-regex "(.*)(\?|\$)(.*)"';
+	$cmd = 'wget \\'. PHP_EOL;
+	$cmd .= ' --recursive \\'. PHP_EOL;
+	$cmd .= ' --no-check-certificate \\'. PHP_EOL;
+	// $cmd .= ' --domains '. $site. ' \\'. PHP_EOL ;
+	$cmd .= ' --no-parent \\'. PHP_EOL;
+	$cmd .= ' --page-requisites \\'. PHP_EOL;
+	$cmd .= ' --html-extension \\'. PHP_EOL;
+	// $cmd .= ' --convert-links \\'. PHP_EOL;
+	// $cmd .= ' --no-clobber \\'. PHP_EOL;
+	$cmd .= ' --reject-regex "(.*)(\$)(.*)" \\'. PHP_EOL;
 
-	$cmd .= " --header 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36'";
+	$cmd .= " --header 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36' \\". PHP_EOL;
 
 	if($cookie)
 	{
-		$cmd .= sprintf(" --header 'cookie: %s'", $cookie);
+		$cmd .= sprintf(" --header 'cookie: %s' \\". PHP_EOL, $cookie);
 	}
 
 	$cmd .= ' '. $site;
@@ -84,7 +84,7 @@ class wget
 
 	file_put_contents(__DIR__. '/run.sh', $cmd);exit;
 
-	echo ' sh run.sh';
+
 	// exec($cmd);
   }
 
@@ -95,4 +95,5 @@ class wget
 }
 
 wget::run();
+
 ?>
