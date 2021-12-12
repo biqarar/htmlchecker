@@ -64,12 +64,12 @@ class wget
 	$cmd .= ' --recursive';
 	$cmd .= ' --no-check-certificate';
 	// $cmd .= ' --domains '. $site;
-	$cmd .= ' --no-parent';
+	// $cmd .= ' --no-parent';
 	$cmd .= ' --page-requisites';
 	$cmd .= ' --html-extension';
-	$cmd .= ' --convert-links';
-	$cmd .= ' --no-clobber';
-	$cmd .= ' --reject-regex "(.*)\?(.*)"';
+	// $cmd .= ' --convert-links';
+	// $cmd .= ' --no-clobber';
+	$cmd .= ' --reject-regex "(.*)(\?|\$)(.*)"';
 
 	$cmd .= " --header 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36'";
 
